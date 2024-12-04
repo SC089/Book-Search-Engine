@@ -16,12 +16,12 @@ export const resolvers = {
       if (!user || !(await user.isCorrectPassword(password))) {
         throw new Error('Invalid credentials');
       }
-      const token = signToken(user); // Updated to pass the user object
+      const token = signToken(user); // passes user object
       return { token, user };
     },
     addUser: async (_: any, { username, email, password }: { username: string; email: string; password: string }) => {
       const user = await User.create({ username, email, password });
-      const token = signToken(user); // Updated to pass the user object
+      const token = signToken(user);
       return { token, user };
     },
     saveBook: async (_: any, { input }: { input: any }, context: any) => {
