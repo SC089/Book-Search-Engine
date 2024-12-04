@@ -18,6 +18,12 @@ export const authenticateToken = ({ req }: { req: ExpressRequest }) => {
 
   console.log('Auth header:', req.headers.authorization);
 
+  if (!authHeader) {
+    console.warn('No authorization header provided.');
+    req.user = null;
+    return req;
+  }
+
   if (authHeader) {
     const token = authHeader.split(' ')[1];
 

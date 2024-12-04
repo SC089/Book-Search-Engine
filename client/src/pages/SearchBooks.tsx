@@ -70,6 +70,7 @@ const SearchBooks = () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
+      console.warn('No token available for saving book.')
       return false;
     }
 

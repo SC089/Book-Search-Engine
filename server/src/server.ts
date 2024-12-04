@@ -22,6 +22,14 @@ const __dirname = path.dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: ['http://localhost:300', 'http://localhost:3001'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -32,10 +40,10 @@ const startServer = async () => {
 
   app.use(
     '/graphql',
-    cors<cors.CorsRequest>(), 
     bodyParser.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
+        console.log('Auth Header (from context):', req.headers.authorization);
         authenticateToken({ req }); 
         return { user: (req as any).user }; // Pass authenticated user to context
       },

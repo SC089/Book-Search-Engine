@@ -25,15 +25,28 @@ export const resolvers = {
       return { token, user };
     },
     saveBook: async (_: any, { input }: { input: any }, context: any) => {
-      if (context.req.user) {
+      if (!context.req.user) {
+       console.error('SaveBook Error: User not authenticated.');
+       throw new Error('Not authenticated');
+      }
+
+      try {
+        console.log('SaveBook Input:', input);
+        console.log('Authenticated User:', context.req.user);
+
         const updatedUser = await User.findByIdAndUpdate(
           context.req.user._id,
           { $addToSet: { savedBooks: input } },
-          { new: true }
+          { new: true, runValidators: true }
         ).populate('savedBooks');
+
+        console.log('Updated User:', updatedUser);
+
         return updatedUser;
+      } catch (err) {
+        console.error('SaveBook Error:', err);
+        throw new Error('Failed to save book');
       }
-      throw new Error('Not authenticated');
     },
     removeBook: async (_: any, { bookId }: { bookId: string }, context: any) => {
       if (context.req.user) {
