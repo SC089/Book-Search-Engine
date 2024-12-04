@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://sacasadevall:4VRZor3ijm6VLviT@project-cluster.vvxou.mongodb.net/');
 
 export default mongoose.connection;
