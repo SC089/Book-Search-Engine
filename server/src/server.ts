@@ -25,10 +25,25 @@ const __dirname = path.dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// if we're in production, serve client/build as static assets
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
+// if we're in production, serve client/dist as static assets
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
+  const buildPath = path.join(__dirname, '../../client/dist');
+  console.log('Serving static files from:', buildPath);
+
+  app.use(express.static(buildPath));
+
+  app.get('*', (_, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'), (err) => {
+      if (err) {
+        console.error('Error serving index.html', err);
+        res.status(500).send(err);
+      }
+    })
+  })
 }
+
 
 app.use(routes);
 

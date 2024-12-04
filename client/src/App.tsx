@@ -6,7 +6,7 @@ import './App.css';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql', // Replace with your backend's GraphQL endpoint
+  uri: 'http://localhost:3001', 
   cache: new InMemoryCache(),
 });
 
