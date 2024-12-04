@@ -29,7 +29,7 @@ export const authenticateToken = ({ req }: { req: ExpressRequest }) => {
   return req;
 };
 
-export const signToken = (username: string, email: string, _id: unknown) => {
-  const payload = { username, email, _id };
+export const signToken = (user: { username: string; email: string; _id: string }) => {
+  const payload = { username: user.username, email: user.email, _id: user._id };
   return jwt.sign(payload, secretKey, { expiresIn: expiration });
 };
