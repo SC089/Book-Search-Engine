@@ -2,6 +2,8 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "outDir": "./dist",
+    "rootDir": "./src",
 
     /* Modules */
     "module": "ESNext" /* Specify what module code is generated. */,

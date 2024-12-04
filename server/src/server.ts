@@ -10,9 +10,8 @@ import bodyParser from 'body-parser';
 import { ExpressContextFunctionArgument } from '@apollo/server/express4';
 import { Request as ExpressRequest } from 'express';
 
-import { typeDefs } from './schemas/typeDefs';
-import { resolvers } from './schemas/resolvers'; 
-import { authenticateToken } from './services/auth'; 
+import { typeDefs, resolvers } from './schemas/index.js';
+import { authenticateToken } from './services/auth.js'; 
 
 dotenv.config();
 
@@ -28,6 +27,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(routes);
+
+console.log('typeDefs', typeDefs);
+console.log('resolvers', resolvers);
 
 const server = new ApolloServer({
   typeDefs,

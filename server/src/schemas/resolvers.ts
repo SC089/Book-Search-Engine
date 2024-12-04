@@ -1,5 +1,5 @@
-import User from '../models/User';
-import { signToken } from '../services/auth';
+import User from '../models/User.js';
+import { signToken } from '../services/auth.js';
 
 export const resolvers = {
   Query: {
@@ -16,7 +16,7 @@ export const resolvers = {
       if (!user || !(await user.isCorrectPassword(password))) {
         throw new Error('Invalid credentials');
       }
-      const token = signToken(user); // passes user object
+      const token = signToken(user);
       return { token, user };
     },
     addUser: async (_: any, { username, email, password }: { username: string; email: string; password: string }) => {
@@ -48,3 +48,4 @@ export const resolvers = {
     },
   },
 };
+

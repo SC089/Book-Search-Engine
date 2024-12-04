@@ -10,12 +10,12 @@ import {
   Row,
 } from 'react-bootstrap';
 
-import Auth from '../utils/auth';
-import { SAVE_BOOK } from '../api/mutations';
-import { searchGoogleBooks } from '../utils/API';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
-import type { Book } from '../models/Book';
-import type { GoogleAPIBook } from '../models/GoogleAPIBook';
+import Auth from '../utils/auth.js';
+import { SAVE_BOOK } from '../api/mutations.js';
+import { searchGoogleBooks } from '../utils/API.js';
+import { saveBookIds, getSavedBookIds } from '../utils/localStorage.js';
+import type { Book } from '../models/Book.js';
+import type { GoogleAPIBook } from '../models/GoogleAPIBook.js';
 
 const SearchBooks = () => {
   const [searchedBooks, setSearchedBooks] = useState<Book[]>([]);
