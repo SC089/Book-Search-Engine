@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/graphql": "^14.2.3",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.2"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",
