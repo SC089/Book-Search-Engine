@@ -3,7 +3,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 
-import { ADD_USER } from '../api/mutations'; // Import your GraphQL mutation
+import { ADD_USER } from '../api/mutations'; 
 import Auth from '../utils/auth';
 import type { User } from '../models/User';
 
@@ -35,18 +35,14 @@ const SignupForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
 
     try {
       const { data } = await addUser({
-        variables: {
-          username: userFormData.username,
-          email: userFormData.email,
-          password: userFormData.password,
-        },
+        variables: { ...userFormData },
       });
-
+      console.log('Sign Up successful:', data)
       const token = data.addUser.token;
       Auth.login(token);
       handleModalClose(); // Close modal on successful signup
     } catch (err) {
-      console.error(err);
+      console.error('Signup failed:',err);
       setShowAlert(true);
     }
 

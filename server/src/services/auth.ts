@@ -10,21 +10,26 @@ interface JwtPayload {
   email: string;
 }
 
-const secretKey = process.env.JWT_SECRET_KEY || '';
+const secretKey = process.env.JWT_SECRET_KEY || 'defaultsecret';
 const expiration = '1h';
 
 export const authenticateToken = ({ req }: { req: ExpressRequest }) => {
   const authHeader = req.headers.authorization;
+
+  console.log('Auth header:', req.headers.authorization);
 
   if (authHeader) {
     const token = authHeader.split(' ')[1];
 
     try {
       const decodedToken = jwt.verify(token, secretKey) as JwtPayload;
-      req.user = decodedToken;
+
+      (req as any).user = decodedToken;
     } catch (err) {
-      console.log('Invalid or expired token');
+      console.error('Invalid or expired token', err);
     }
+  } else {
+    console.warn('No authorization header provided.')
   }
   return req;
 };
