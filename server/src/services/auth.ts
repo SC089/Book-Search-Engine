@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Request as ExpressRequest } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -13,7 +13,7 @@ interface JwtPayload {
 const secretKey = process.env.JWT_SECRET_KEY || '';
 const expiration = '1h';
 
-export const authenticateToken = ({ req }: { req: Request }) => {
+export const authenticateToken = ({ req }: { req: ExpressRequest }) => {
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
