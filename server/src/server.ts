@@ -12,11 +12,15 @@ import { Request as ExpressRequest } from 'express';
 
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './services/auth.js'; 
+import { fileURLToPath } from 'node:url';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
