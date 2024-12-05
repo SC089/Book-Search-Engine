@@ -49,11 +49,17 @@ export const login = async (req: Request, res: Response) => {
 // user comes from `req.user` created in the auth middleware function
 export const saveBook = async (req: Request, res: Response) => {
   try {
+
+    if (!req.user) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
     const updatedUser = await User.findOneAndUpdate(
       { _id: req.user._id },
       { $addToSet: { savedBooks: req.body } },
       { new: true, runValidators: true }
     );
+
     return res.json(updatedUser);
   } catch (err) {
     console.log(err);
@@ -63,6 +69,11 @@ export const saveBook = async (req: Request, res: Response) => {
 
 // remove a book from `savedBooks`
 export const deleteBook = async (req: Request, res: Response) => {
+
+  if (!req.user) {
+    return res.status(401).json({ message: 'User not authenticated' });
+  }
+
   const updatedUser = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $pull: { savedBooks: { bookId: req.params.bookId } } },
