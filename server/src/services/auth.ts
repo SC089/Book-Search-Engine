@@ -16,7 +16,7 @@ const expiration = '1h';
 export const authenticateToken = ({ req }: { req: ExpressRequest }) => {
   const authHeader = req.headers.authorization;
 
-  console.log('Auth header:', req.headers.authorization);
+  console.log('Auth header:', authHeader);
 
   if (!authHeader) {
     console.warn('No authorization header provided.');
